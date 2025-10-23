@@ -36,7 +36,7 @@ import com.aalh.firebase.ui.theme.UnselectedTheme
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun LoginScreen(auth: FirebaseAuth) {
+fun LoginScreen(auth: FirebaseAuth, navigateToHome: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current
@@ -82,7 +82,7 @@ fun LoginScreen(auth: FirebaseAuth) {
         Button(onClick = {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Toast.makeText(context, "Se completo el loggeo", Toast.LENGTH_SHORT).show()
+                    navigateToHome()
                 } else {
                     Toast.makeText(context, "Se genero un error", Toast.LENGTH_SHORT).show()
                 }
